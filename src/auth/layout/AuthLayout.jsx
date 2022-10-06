@@ -24,6 +24,7 @@ export const AuthLayout = ({ children, title = '' }) => {
                     sx={{ mb: 1 }}
                 >
                     { title }
+                    
                 </Typography>
 
                 { children }
