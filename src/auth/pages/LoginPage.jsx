@@ -3,19 +3,33 @@ import { Google } from '@mui/icons-material'
 import { Button, Grid, Link, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
+import { useForm } from '../../hooks'
 
 export const LoginPage = () => {
+
+    const { email, password, onInputChange } = useForm({
+        email: 'alangobe01@gmail.com',
+        password: '1357908642'
+    });
+
+    const onSubmit = ( event ) => {
+        event.preventDefault();
+        console.log({ email, password });
+    }
 
     return (
         
         <AuthLayout title="Log in">
-            <form action="">
+            <form onSubmit={ onSubmit }>
                 <Grid container >
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
                         <TextField 
                             label="Email" 
                             type="email" 
                             placeholder="example@email.com"
+                            name="email"
+                            onChange={ onInputChange }
+                            value={ email }
                             fullWidth
                         />
                     </Grid>
@@ -24,6 +38,9 @@ export const LoginPage = () => {
                             label="Password" 
                             type="password" 
                             placeholder="Password"
+                            name="password"
+                            onChange={ onInputChange }
+                            value={ password }
                             fullWidth
                         />
                     </Grid>
@@ -33,7 +50,7 @@ export const LoginPage = () => {
                         sx={{ mt: 1, mb: 1 }}
                     >
                         <Grid item xs={ 12 } sm={ 6 }>
-                            <Button variant="contained" fullWidth>
+                            <Button variant="contained" type="submit" fullWidth>
                                 <Typography>Login</Typography>
                             </Button>
                         </Grid>
