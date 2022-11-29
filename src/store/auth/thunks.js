@@ -13,7 +13,8 @@ export const displayGoogleSignIn = ( email, password ) => {
 
     return async( dispatch ) => {
         dispatch(checkingCredentials());
-        const result = signInWithGoogle();
+        const result = await signInWithGoogle();
+        console.log({ result });
     }
 
 }
