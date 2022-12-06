@@ -2,13 +2,27 @@ import { Link as RouterLink } from 'react-router-dom'
 import { Button, Grid, Link, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
+import { useForm } from '../../hooks'
+
+const formData = {
+    email:'correo@ejemplo.com',
+    password: 'password',
+    displayName: 'Nombre usuario'
+}
 
 export const RegisterPage = () => {
+
+    const { displayName, email, password, onInputChange, formState } = useForm(formData);
+
+    const onSubmit = ( event ) => {
+        event.preventDefault();
+        console.log(formState)
+    }
 
     return (
         
         <AuthLayout title="Register">
-            <form action="">
+            <form onSubmit={ onSubmit }>
                 <Grid container >
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
                         <TextField 
@@ -16,6 +30,9 @@ export const RegisterPage = () => {
                             type="text" 
                             placeholder="Username"
                             fullWidth
+                            name='displayName'
+                            value={ displayName }
+                            onChange={ onInputChange }
                         />
                     </Grid>
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
@@ -24,6 +41,9 @@ export const RegisterPage = () => {
                             type="email" 
                             placeholder="example@email.com"
                             fullWidth
+                            name='email'
+                            value={ email }
+                            onChange={ onInputChange }
                         />
                     </Grid>
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
@@ -32,6 +52,9 @@ export const RegisterPage = () => {
                             type="password" 
                             placeholder="Password"
                             fullWidth
+                            name='password'
+                            value={ password }
+                            onChange={ onInputChange }
                         />
                     </Grid>
                     <Grid 
@@ -40,7 +63,7 @@ export const RegisterPage = () => {
                         sx={{ mt: 1, mb: 1 }}
                     >
                         <Grid item xs={ 12 }>
-                            <Button variant="contained" fullWidth>
+                            <Button variant="contained" fullWidth type="submit">
                                 <Typography>Register</Typography>
                             </Button>
                         </Grid>
