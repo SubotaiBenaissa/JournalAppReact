@@ -18,12 +18,14 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
-    const { displayName, email, password, onInputChange, formState, isValid, displayNameValid, emailValid, passwordValid } = useForm(formData);
+    const { displayName, email, password, onInputChange, formState, isValid, displayNameValid, emailValid, passwordValid } = useForm(formData, formValidations);
 
     const onSubmit = ( event ) => {
         event.preventDefault();
         console.log(formState)
     }
+
+    console.log(displayNameValid)
 
     return (
         
