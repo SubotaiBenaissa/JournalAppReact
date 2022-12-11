@@ -4,6 +4,8 @@ import React from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { creatingUserEmailPassword } from '../../store/auth'
 
 const formData = {
     email:'',
@@ -19,6 +21,8 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
+    const dispatch = useDispatch()
+
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const { displayName, email, password, onInputChange, formState, isFormValid, displayNameValid, emailValid, passwordValid } = useForm(formData, formValidations);
@@ -26,14 +30,14 @@ export const RegisterPage = () => {
     const onSubmit = ( event ) => {
         event.preventDefault();
         setFormSubmitted(true)
-        console.log(formState)
+        if (!isFormValid) return;
+        dispatch(creatingUserEmailPassword(formState))
     }
 
 
     return (
         
         <AuthLayout title="Register">
-            <h1>Form: { isFormValid ? 'Valid' : 'Incorrect' }</h1>
             <form onSubmit={ onSubmit }>
                 <Grid container >
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
