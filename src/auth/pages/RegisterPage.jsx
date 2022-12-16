@@ -1,10 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom'
-import { Button, Grid, Link, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material'
+import React, { useMemo, useState } from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { creatingUserEmailPassword } from '../../store/auth'
 
 const formData = {
@@ -25,7 +24,19 @@ export const RegisterPage = () => {
 
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    const { displayName, email, password, onInputChange, formState, isFormValid, displayNameValid, emailValid, passwordValid } = useForm(formData, formValidations);
+    const { status, errorMessage } = useSelector( state => state.auth );
+    const isCheckingAuthentication = useMemo(() => status === 'checking', [ status ]) 
+
+    const { 
+        displayName, 
+        email, 
+        password, 
+        onInputChange, 
+        formState, 
+        isFormValid, 
+        displayNameValid, 
+        emailValid, 
+        passwordValid } = useForm(formData, formValidations);
 
     const onSubmit = ( event ) => {
         event.preventDefault();
@@ -84,8 +95,13 @@ export const RegisterPage = () => {
                         spacing={ 2 }
                         sx={{ mt: 1, mb: 1 }}
                     >
+                        <Grid item xs={ 12 } display={ !!errorMessage ? '' : 'none' }>
+                            <Alert severity='error'>
+                                { errorMessage }
+                            </Alert>
+                        </Grid>
                         <Grid item xs={ 12 }>
-                            <Button variant="contained" fullWidth type="submit">
+                            <Button variant="contained" fullWidth type="submit" disabled={ isCheckingAuthentication }>
                                 <Typography>Register</Typography>
                             </Button>
                         </Grid>
