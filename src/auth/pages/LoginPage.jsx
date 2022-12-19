@@ -5,7 +5,7 @@ import { Button, Grid, Link, TextField, Typography } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { checkingAuth, displayGoogleSignIn } from '../../store/auth'
+import { displayGoogleSignIn, startLogInEmailPassword } from '../../store/auth'
 
 export const LoginPage = () => {
 
@@ -22,8 +22,9 @@ export const LoginPage = () => {
 
     const onSubmit = ( event ) => {
         event.preventDefault();
-        console.log({ email, password });
-        dispatch( checkingAuth() );
+        // console.log({ email, password });
+        
+        dispatch( startLogInEmailPassword({ email, password }) );
     }
 
     const onGoogleSignIn = () => {

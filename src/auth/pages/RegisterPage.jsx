@@ -60,7 +60,7 @@ export const RegisterPage = () => {
                             name='displayName'
                             value={ displayName }
                             onChange={ onInputChange }
-                            error={ !!displayNameValid && formSubmitted}
+                            error={ !!displayNameValid && formSubmitted }
                             helperText={ displayNameValid }
                         />
                     </Grid>
