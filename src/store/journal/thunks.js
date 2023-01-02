@@ -1,5 +1,6 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite"
 import { firebaseDB } from "../../firebase/config"
+import { addNewEmptyNote } from "./journalSlice"
 
 export const startNewNote = () => {
 
@@ -18,9 +19,14 @@ export const startNewNote = () => {
 
         
         const newDoc = doc(collection( firebaseDB, `/${ uid }/journal/notes` ))
-        const setDocResp = await setDoc( newDoc, newNote )
+        await setDoc( newDoc, newNote )
 
-        console.log({ newDoc, setDocResp })
+        // console.log({ newDoc, setDocResp })
+
+        newNote.id = newDoc.id;
+        dispatch( addNewEmptyNote(newNote) );
+
+
     }
 
 }
