@@ -13,6 +13,7 @@ export const NoteView = () => {
 
     const dateString = useMemo(() => {
         const newDate = new Date( date )
+        return newDate.toUTCString()
     }, [date])
 
     return (
@@ -26,7 +27,7 @@ export const NoteView = () => {
             sx={{ mb: 1 }}
         >
             <Grid item>
-                <Typography fontSize={ 39 } fontWeight="light">08 de octubre, 2023</Typography>
+                <Typography fontSize={ 39 } fontWeight="light">{ dateString }</Typography>
             </Grid>
             <Grid item>
                 <Button color="primary" sx={{ padding: 2 }}>
