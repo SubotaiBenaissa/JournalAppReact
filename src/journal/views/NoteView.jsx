@@ -2,8 +2,18 @@ import React from 'react'
 import { SaveOutlined } from '@mui/icons-material'
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import { ImageGalleryComponent } from '../components'
+import { useForm } from '../../hooks/useForm'
+import { useSelector } from 'react-redux'
+import { useMemo } from 'react'
 
 export const NoteView = () => {
+
+    const { active:note } = useSelector( state => state.journal )
+    const { body, title, date, onInputChange, formState } = useForm( note )
+
+    const dateString = useMemo(() => {
+        const newDate = new Date( date )
+    }, [date])
 
     return (
         
@@ -32,6 +42,9 @@ export const NoteView = () => {
                     placeholder="Ingresar un título"
                     label="Título"
                     sx={{ border: 'none', mb: 1, mt: 2 }}
+                    name="title"
+                    value={ title }
+                    onChange={ onInputChange }
                 />
                 <TextField 
                     type="text"
@@ -40,6 +53,9 @@ export const NoteView = () => {
                     multiline
                     placeholder="¿Qué sucedió hoy XD?"
                     minRows={ 5 }
+                    name="body"
+                    value={ body }
+                    onChange={ onInputChange }
                 />
                 <ImageGalleryComponent />
             </Grid>
