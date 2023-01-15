@@ -2,7 +2,7 @@ import { ImageList, ImageListItem } from '@mui/material';
 import React from 'react';
 
 
-export const ImageGalleryComponent = ({ images }) => {
+export const ImageGalleryComponent = ({ images = [] }) => {
     return (
 
         <ImageList sx={{ width: 900, height: 500 }} cols={3} rowHeight={300}>
